@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
 import Onboarding from "react-native-onboarding-swiper";
-const OnboardingScreen = () => {
+const OnboardingScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Onboarding
-        onDone={() => alert("Done")}
+        onDone={() => navigation.navigate("initial")}
         pages={[
           //page 1
           {
