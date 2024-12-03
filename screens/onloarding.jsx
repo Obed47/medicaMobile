@@ -5,6 +5,7 @@ const OnboardingScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Onboarding
+        //the following code permits navigation to the initial path when the onboading is done
         onDone={() => navigation.navigate("initial")}
         pages={[
           //page 1
