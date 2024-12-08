@@ -7,7 +7,7 @@ import ConsultationHistory from "./ConsultationHistory";
 import Profile from "./Profile";
 const Tab = createBottomTabNavigator();
 
-const ButtomNavigation = () => {
+const Homepage = () => {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -59,4 +59,4 @@ const ButtomNavigation = () => {
   );
 };
 
-export default ButtomNavigation;
+export default Homepage;

@@ -1,10 +1,10 @@
 import { View, Text } from "react-native";
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import OnboardingScreen from "./onloarding";
+import OnboardingScreen from "./onboarding";
 import { NavigationContainer } from "@react-navigation/native";
 import InitialInfo from "./initialInfo";
-import ButtomNavigation from "./buttomNavigation";
+import Homepage from "./homePage";
 const Navigation = () => {
   const Stack = createStackNavigator();
   return (
@@ -21,8 +21,8 @@ const Navigation = () => {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="buttomNavigation"
-          component={ButtomNavigation}
+          name="homePage"
+          component={Homepage}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

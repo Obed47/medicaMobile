@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Pressable, ScrollView, TextInput } from "react-native-gesture-handler";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-const InitialInfo = () => {
+const InitialInfo = ({ navigation }) => {
   const [allergies, setAllergies] = useState([]);
   const [illnesses, setIllnesses] = useState([]);
   const [currentIllness, setCurrentIllness] = useState("");
@@ -105,7 +105,10 @@ const InitialInfo = () => {
           </View>
         </View>
       </View>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate("homePage")}
+      >
         <Text
           style={{ margin: "auto", textAlign: "center", fontWeight: "bold" }}
         >

@@ -3,14 +3,18 @@ import {
   Text,
   Image,
   StyleSheet,
-  ImageBackground,
   TouchableOpacity,
+  Linking,
 } from "react-native";
 import { CheckBox } from "react-native-elements";
 import React, { useState } from "react";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 const Consultation = ({ navigation }) => {
   const [isChecked, setIsChecked] = useState(false);
+
+  const NavigateToWebsite = () => {
+    Linking.openURL("https://facebook.com");
+  };
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -23,8 +27,12 @@ const Consultation = ({ navigation }) => {
 
       <View style={styles.text}>
         <Text style={{ fontSize: 20 }}>
-          Hello clientName Feel at home and express yourself to me. Keenly
-          listening and taking note!
+          Hello{" "}
+          <Text style={{ color: "#0000FF", fontWeight: 600 }}>clientName</Text>{" "}
+        </Text>
+        <Text style={{ fontSize: 20 }}>
+          Feel at home and express yourself to me. Keenly listening and taking
+          note!
         </Text>
         <CheckBox
           title={"accept terms and conditions"}
@@ -35,7 +43,7 @@ const Consultation = ({ navigation }) => {
         />
       </View>
       <TouchableOpacity
-        onPress={() => navigation.navigate("onboarding")}
+        onPress={NavigateToWebsite}
         style={isChecked ? styles.button : styles.buttonInActive}
       >
         <View style={styles.buttonContent}>
@@ -50,7 +58,7 @@ const Consultation = ({ navigation }) => {
 export default Consultation;
 const styles = StyleSheet.create({
   image: {
-    width: "100%",
+    width: "90%",
     height: "100%",
     marginHorizontal: "auto",
   },
@@ -70,10 +78,11 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "#B3B3FA",
-    width: "50%",
+    width: "60%",
     height: 60,
     marginHorizontal: "auto",
     borderRadius: 10,
+    elevation: 5,
   },
   buttonInActive: {
     backgroundColor: "#E7E7FF",
