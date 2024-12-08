@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import OnboardingScreen from "./onloarding";
 import { NavigationContainer } from "@react-navigation/native";
 import InitialInfo from "./initialInfo";
+import ButtomNavigation from "./buttomNavigation";
 const Navigation = () => {
   const Stack = createStackNavigator();
   return (
@@ -17,6 +18,11 @@ const Navigation = () => {
         <Stack.Screen
           name="initial"
           component={InitialInfo}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="buttomNavigation"
+          component={ButtomNavigation}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
