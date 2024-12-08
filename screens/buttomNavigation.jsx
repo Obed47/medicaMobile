@@ -1,4 +1,3 @@
-import { View, Text } from "react-native";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import React from "react";
@@ -12,8 +11,9 @@ const ButtomNavigation = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarActiveTintColor: "red",
+        tabBarActiveTintColor: "#0000FF",
         tabBarInactiveTintColor: "black",
+        headerShown: false,
       }}
     >
       <Tab.Screen
@@ -24,7 +24,7 @@ const ButtomNavigation = () => {
             <FontAwesome5
               name={focused ? "hospital-symbol" : "hospital-symbol"}
               size={24}
-              color={focused ? "red" : "black"}
+              color={focused ? "#B3B3FA" : "black"}
             />
           ),
         }}
@@ -37,7 +37,7 @@ const ButtomNavigation = () => {
             <FontAwesome5
               name={focused ? "history" : "history"}
               size={24}
-              color={focused ? "red" : "black"}
+              color={focused ? "#B3B3FA" : "black"}
             />
           ),
         }}
@@ -50,7 +50,7 @@ const ButtomNavigation = () => {
             <MaterialCommunityIcons
               name={focused ? "face-man-profile" : "face-man-profile"}
               size={24}
-              color={focused ? "red" : "black"}
+              color={focused ? "#B3B3FA" : "black"}
             />
           ),
         }}

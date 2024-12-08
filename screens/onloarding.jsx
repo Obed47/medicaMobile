@@ -7,6 +7,7 @@ const OnboardingScreen = ({ navigation }) => {
       <Onboarding
         //the following code permits navigation to the initial path when the onboading is done
         onDone={() => navigation.navigate("buttomNavigation")}
+        onSkip={() => navigation.navigate("buttomNavigation")}
         pages={[
           //page 1
           {
