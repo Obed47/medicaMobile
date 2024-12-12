@@ -13,7 +13,6 @@ const Homepage = () => {
       screenOptions={{
         tabBarActiveTintColor: "#0000FF",
         tabBarInactiveTintColor: "black",
-        headerShown: false,
       }}
     >
       <Tab.Screen
