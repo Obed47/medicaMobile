@@ -6,17 +6,31 @@ import {
   TouchableOpacity,
   Linking,
 } from "react-native";
+import AwesomeAlert from "react-native-awesome-alerts";
 import { CheckBox } from "react-native-elements";
 import React, { useState } from "react";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 const Consultation = ({ navigation }) => {
   const [isChecked, setIsChecked] = useState(false);
-
+  const [showAlert, setShowAlert] = useState(false);
+  const handleIsChecked = () => {
+    setIsChecked(!isChecked);
+  };
+  const handleShowAlert = () => {
+    setShowAlert(!showAlert);
+  };
   const NavigateToWebsite = () => {
-    Linking.openURL("https://facebook.com");
+    Linking.openURL("https://example.com");
   };
   return (
     <View style={styles.container}>
+      <AwesomeAlert
+        show={showAlert}
+        message="Please accept the terms and conditions first"
+        cancelText="Alright"
+        showCancelButton={true}
+        onCancelPressed={() => setShowAlert(false)}
+      />
       <View style={styles.imageContainer}>
         <Image
           source={require("../assets/robot1.png")}
@@ -37,13 +51,13 @@ const Consultation = ({ navigation }) => {
         <CheckBox
           title={"accept terms and conditions"}
           checked={isChecked}
-          onPress={() => setIsChecked(!isChecked)}
+          onPress={handleIsChecked}
           checkedColor="green"
           uncheckedColor="red"
         />
       </View>
       <TouchableOpacity
-        onPress={NavigateToWebsite}
+        onPress={isChecked ? NavigateToWebsite : handleShowAlert}
         style={isChecked ? styles.button : styles.buttonInActive}
       >
         <View style={styles.buttonContent}>
