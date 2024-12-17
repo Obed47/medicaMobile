@@ -5,6 +5,7 @@ import OnboardingScreen from "./onboarding";
 import { NavigationContainer } from "@react-navigation/native";
 import InitialInfo from "./initialInfo";
 import Homepage from "./homePage";
+import CreateAccount from "./createAccount";
 const Navigation = () => {
   const Stack = createStackNavigator();
   return (
@@ -23,6 +24,11 @@ const Navigation = () => {
         <Stack.Screen
           name="homePage"
           component={Homepage}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="createAccount"
+          component={CreateAccount}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

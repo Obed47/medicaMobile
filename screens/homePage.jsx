@@ -1,10 +1,13 @@
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import Feather from "@expo/vector-icons/Feather";
+
 import React, { useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Consultation from "./consultation";
 import ConsultationHistory from "./ConsultationHistory";
 import Profile from "./Profile";
+import Map from "./map";
 const Tab = createBottomTabNavigator();
 
 const Homepage = () => {
@@ -48,6 +51,19 @@ const Homepage = () => {
           tabBarIcon: ({ focused, color, size }) => (
             <MaterialCommunityIcons
               name={focused ? "face-man-profile" : "face-man-profile"}
+              size={24}
+              color={focused ? "#B3B3FA" : "black"}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="map"
+        component={Map}
+        options={{
+          tabBarIcon: ({ focused, color, size }) => (
+            <Feather
+              name="map-pin"
               size={24}
               color={focused ? "#B3B3FA" : "black"}
             />

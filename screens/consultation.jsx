@@ -20,6 +20,7 @@ const Consultation = ({ navigation }) => {
     setShowAlert(!showAlert);
   };
   const NavigateToWebsite = () => {
+    //enter bot link here
     Linking.openURL("https://example.com");
   };
   return (

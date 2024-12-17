@@ -6,8 +6,8 @@ const OnboardingScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Onboarding
         //the following code permits navigation to the initial path when the onboading is done
-        onDone={() => navigation.navigate("initial")}
-        onSkip={() => navigation.navigate("initial")}
+        onDone={() => navigation.navigate("createAccount")}
+        onSkip={() => navigation.navigate("createAccount")}
         pages={[
           //page 1
           {
