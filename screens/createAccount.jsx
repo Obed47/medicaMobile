@@ -25,11 +25,15 @@ const CreateAccount = ({ navigation }) => {
   const [illnesses, setIllnesses] = useState("");
   const [allergies, setAlllergies] = useState("");
   const [showDate, setShowDate] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const handleSetVisible = () => {
     setVisible(!visible);
   };
   const handleShowDate = () => {
     setShowDate(!showDate);
+  };
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
   };
 
   const handlePost = () => {
@@ -54,19 +58,19 @@ const CreateAccount = ({ navigation }) => {
       });
   };
   return (
-    <ScrollView>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Welcome to Medica</Text>
-      </View>
+    <ScrollView style={styles.mainPage}>
       <Text
         style={{
           textAlign: "center",
-          fontSize: 19,
+          fontSize: 24,
           fontWeight: 600,
-          padding: 10,
+          paddingTop: 60,
         }}
       >
         Create Account
+      </Text>
+      <Text style={{ textAlign: "center", padding: 10, color: "gray" }}>
+        Join Medica and enjoy professional health care
       </Text>
       <View style={styles.form}>
         <TextInput
@@ -84,18 +88,39 @@ const CreateAccount = ({ navigation }) => {
           onChangeText={(e) => setEmail(e)}
           style={styles.field}
         />
-        <TextInput
-          placeholder="Enter Password"
-          onChangeText={(e) => setPass(e)}
-          secureTextEntry={true}
-          style={styles.field}
-        />
-        <TextInput
-          placeholder="Confirm Password"
-          onChangeText={(e) => setConfirmPass(e)}
-          secureTextEntry={true}
-          style={styles.field}
-        />
+        <View style={styles.passwordContainer}>
+          <TextInput
+            placeholder="Enter Password"
+            onChangeText={(e) => setPass(e)}
+            secureTextEntry={showPassword}
+            style={styles.passwordField}
+          />
+          <TouchableOpacity onPress={handleShowPassword}>
+            <Feather
+              name={showPassword ? "eye-off" : "eye"}
+              size={27}
+              color="gray"
+              style={styles.eye}
+            />
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.passwordContainer}>
+          <TextInput
+            placeholder="Confirm Password"
+            onChangeText={(e) => setConfirmPass(e)}
+            secureTextEntry={showPassword}
+            style={styles.passwordField}
+          />
+          <TouchableOpacity onPress={handleShowPassword}>
+            <Feather
+              name={showPassword ? "eye-off" : "eye"}
+              size={27}
+              color="gray"
+              style={styles.eye}
+            />
+          </TouchableOpacity>
+        </View>
         <TextInput
           placeholder="Choose username"
           onChangeText={(e) => setUsername(e)}
@@ -129,15 +154,19 @@ const CreateAccount = ({ navigation }) => {
           secureTextEntry={false}
           style={styles.field}
         />
+        <Text style={{ width: "80%", textAlign: "center" }}>
+          By cliking create account you agree to our terms and conditions
+        </Text>
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            handlePost(), navigation.navigate("initial");
+            handlePost(), navigation.navigate("homePage");
           }}
         >
           <Text style={styles.buttonText}>Create Account</Text>
         </TouchableOpacity>
       </View>
+      <View style={styles.buttomStyle}> </View>
     </ScrollView>
   );
 };
@@ -145,16 +174,21 @@ const CreateAccount = ({ navigation }) => {
 export default CreateAccount;
 
 const styles = StyleSheet.create({
+  mainPage: {
+    backgroundColor: "#DDDDFF",
+    borderBottomLeftRadius: 100,
+    borderBottomRightRadius: 100,
+  },
   header: {
     height: "18%",
     backgroundColor: "#B3B3FA",
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
+    borderBottomRightRadius: 50,
   },
   headerText: {
-    textAlign: "center",
+    textAlign: "left",
     margin: "auto",
-    fontSize: 26,
+    fontSize: 24,
+    paddingLeft: "20",
   },
   form: {
     alignItems: "center",
@@ -163,10 +197,10 @@ const styles = StyleSheet.create({
   field: {
     borderWidth: 1,
     borderColor: "gray",
-    width: "80%",
+    width: "85%",
     height: 60,
     marginTop: 10,
-    borderRadius: 5,
+    borderRadius: 10,
   },
   buttonText: {
     textAlign: "center",
@@ -183,6 +217,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     elevation: 1,
     backgroundColor: "#B3B3FA",
+    elevation: 2,
   },
   calendarButton: {
     flexDirection: "row",
@@ -194,5 +229,22 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 5,
     borderColor: "gray",
+  },
+  passwordContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "gray",
+    height: 65,
+    marginTop: 10,
+    borderRadius: 10,
+  },
+  passwordField: {
+    width: "75%",
+    height: 60,
+  },
+  eye: {
+    marginRight: 20,
   },
 });
