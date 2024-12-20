@@ -37,14 +37,13 @@ const CreateAccount = ({ navigation }) => {
   };
 
   const handlePost = () => {
-    console.log(name, surname, pass);
     axios
-      .post("https://httpbin.org/post", {
+      .post("http://192.168.23.157:8001/register", {
         first_name: name,
         last_name: surname,
+        date_naissance: dob,
         maladie_heriditaire: illnesses,
         allergies: allergies,
-        date_naissance: dob,
         add_email: email,
         username: username,
         password: pass,
@@ -52,6 +51,7 @@ const CreateAccount = ({ navigation }) => {
       })
       .then((response) => {
         console.log("success sent" + response);
+        console.log(name, surname, pass);
       })
       .catch((err) => {
         console.log(err);
@@ -137,7 +137,7 @@ const CreateAccount = ({ navigation }) => {
         {showDate && (
           <DatePicker
             mode="single"
-            onChange={(e) => setDob(e.date)}
+            onChange={(e) => setDob(e.date.toISOString().split("T")[0])}
             date={dob}
             visible={false}
           />
@@ -174,14 +174,9 @@ const CreateAccount = ({ navigation }) => {
 export default CreateAccount;
 
 const styles = StyleSheet.create({
-  mainPage: {
-    backgroundColor: "#DDDDFF",
-    borderBottomLeftRadius: 100,
-    borderBottomRightRadius: 100,
-  },
+  mainPage: {},
   header: {
     height: "18%",
-    backgroundColor: "#B3B3FA",
     borderBottomRightRadius: 50,
   },
   headerText: {
