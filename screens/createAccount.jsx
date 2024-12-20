@@ -4,11 +4,15 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import axios from "axios";
 import React from "react";
+import DatePicker from "react-native-ui-datepicker";
 import { useState } from "react";
 import { ScrollView } from "react-native-gesture-handler";
+import dayjs from "dayjs";
+import Feather from "@expo/vector-icons/Feather";
 const CreateAccount = ({ navigation }) => {
   const [visible, setVisible] = useState(false);
   const [pass, setPass] = useState("");
@@ -17,9 +21,15 @@ const CreateAccount = ({ navigation }) => {
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
-  const [dob, setDob] = useState("");
+  const [dob, setDob] = useState(dayjs());
+  const [illnesses, setIllnesses] = useState("");
+  const [allergies, setAlllergies] = useState("");
+  const [showDate, setShowDate] = useState(false);
   const handleSetVisible = () => {
     setVisible(!visible);
+  };
+  const handleShowDate = () => {
+    setShowDate(!showDate);
   };
 
   const handlePost = () => {
@@ -28,6 +38,8 @@ const CreateAccount = ({ navigation }) => {
       .post("https://httpbin.org/post", {
         first_name: name,
         last_name: surname,
+        maladie_heriditaire: illnesses,
+        allergies: allergies,
         date_naissance: dob,
         add_email: email,
         username: username,
@@ -68,11 +80,6 @@ const CreateAccount = ({ navigation }) => {
           style={styles.field}
         />
         <TextInput
-          placeholder="Enter DOB"
-          onChangeText={(e) => setDob(e)}
-          style={styles.field}
-        />
-        <TextInput
           placeholder="Enter Email"
           onChangeText={(e) => setEmail(e)}
           style={styles.field}
@@ -92,10 +99,42 @@ const CreateAccount = ({ navigation }) => {
         <TextInput
           placeholder="Choose username"
           onChangeText={(e) => setUsername(e)}
-          secureTextEntry={true}
+          secureTextEntry={false}
           style={styles.field}
         />
-        <TouchableOpacity style={styles.button} onPress={() => handlePost()}>
+        <TouchableOpacity
+          style={styles.calendarButton}
+          onPress={() => handleShowDate()}
+        >
+          <Feather name="calendar" size={24} color="gray" />
+          <Text style={{ padding: 5 }}>Choose DOB</Text>
+        </TouchableOpacity>
+        {showDate && (
+          <DatePicker
+            mode="single"
+            onChange={(e) => setDob(e.date)}
+            date={dob}
+            visible={false}
+          />
+        )}
+        <TextInput
+          placeholder="Allergies."
+          onChangeText={(e) => setAlllergies(e)}
+          secureTextEntry={false}
+          style={styles.field}
+        />
+        <TextInput
+          placeholder="Illnesses"
+          onChangeText={(e) => setIllnesses(e)}
+          secureTextEntry={false}
+          style={styles.field}
+        />
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            handlePost(), navigation.navigate("initial");
+          }}
+        >
           <Text style={styles.buttonText}>Create Account</Text>
         </TouchableOpacity>
       </View>
@@ -107,7 +146,7 @@ export default CreateAccount;
 
 const styles = StyleSheet.create({
   header: {
-    height: "15%",
+    height: "18%",
     backgroundColor: "#B3B3FA",
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
@@ -140,8 +179,20 @@ const styles = StyleSheet.create({
     textAlign: "center",
     borderWidth: 1,
     height: 50,
-    marginTop: 30,
+    marginTop: 20,
     borderRadius: 10,
     elevation: 1,
+    backgroundColor: "#B3B3FA",
+  },
+  calendarButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderWidth: 1,
+    width: "40%",
+    height: 50,
+    marginTop: 10,
+    justifyContent: "center",
+    borderRadius: 5,
+    borderColor: "gray",
   },
 });
