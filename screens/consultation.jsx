@@ -42,19 +42,19 @@ const Consultation = ({ navigation }) => {
 
       <View style={styles.text}>
         <Text style={{ fontSize: 20 }}>
-          Hello{" "}
-          <Text style={{ color: "#0000FF", fontWeight: 600 }}>clientName</Text>{" "}
+          Hello
+          <Text style={{ color: "#0000FF", fontWeight: 600 }}> clientName</Text>
         </Text>
-        <Text style={{ fontSize: 20 }}>
+        <Text style={{ fontSize: 17 }}>
           Feel at home and express yourself to me. Keenly listening and taking
           note!
         </Text>
         <CheckBox
-          title={"accept terms and conditions"}
+          title={"Accept terms and conditions"}
           checked={isChecked}
           onPress={handleIsChecked}
-          checkedColor="green"
-          uncheckedColor="red"
+          checkedColor="blue"
+          uncheckedColor="#578fff"
         />
       </View>
       <TouchableOpacity

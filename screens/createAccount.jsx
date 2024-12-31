@@ -4,9 +4,10 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  Image,
 } from "react-native";
 import axios from "axios";
+import { useContext } from "react";
+import { UserIdContext, UserIdProvider, useUserId } from "./context";
 import React from "react";
 import DatePicker from "react-native-ui-datepicker";
 import { useState } from "react";
@@ -26,6 +27,8 @@ const CreateAccount = ({ navigation }) => {
   const [allergies, setAlllergies] = useState("");
   const [showDate, setShowDate] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const { idToSave, setIdToSave } = useUserId();
+
   const handleSetVisible = () => {
     setVisible(!visible);
   };
@@ -35,10 +38,9 @@ const CreateAccount = ({ navigation }) => {
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
-
   const handlePost = () => {
     axios
-      .post("http://192.168.23.157:8001/register", {
+      .post("http://37.60.244.227:2000/register", {
         first_name: name,
         last_name: surname,
         date_naissance: dob,
@@ -52,6 +54,9 @@ const CreateAccount = ({ navigation }) => {
       .then((response) => {
         console.log("success sent" + response);
         console.log(name, surname, pass);
+        setIdToSave(response.data.user_id);
+        //should expect to have the user id here.
+        console.log("user id = ", response.data.user_id);
       })
       .catch((err) => {
         console.log(err);

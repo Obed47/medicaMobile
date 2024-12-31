@@ -11,22 +11,18 @@ const HistoryCard = ({ props }) => {
             <Text style={{ color: "#B3B3FA", fontWeight: 800, fontSize: 17 }}>
               Illness :
             </Text>
-            {props.Illness}
+            {props.maladie}
           </Text>
 
-          <View style={styles.remedies}>
+          <View style={styles.traitement}>
             <Text style={{ color: "#B3B3FA", fontWeight: 800, fontSize: 17 }}>
               Proposed Medication:
             </Text>
-            {props.medications.map((medication) => (
-              <Text key={medication}> {medication}, </Text>
-            ))}
+            <Text>{props.traitement}</Text>
           </View>
           <View style={styles.date}>
             <MaterialIcons name="date-range" size={24} color="black" />
-            <Text>
-              {date.getDay()} : {date.getMonth()} : {date.getYear()}
-            </Text>
+            <Text>{props.date_consultation}</Text>
           </View>
         </View>
       </View>
@@ -39,7 +35,7 @@ export default HistoryCard;
 const styles = StyleSheet.create({
   cardMain: {
     width: "90%",
-    height: 100,
+    height: 140,
     elevation: 1,
     marginHorizontal: "auto",
     marginTop: 15,
