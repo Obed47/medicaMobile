@@ -10,13 +10,14 @@ const ConsultationHistory = () => {
   const fetchData = () => {
     useEffect(() => {
       axios
-        .get("http://192.168.23.157:8000/api/consultations?id=2")
+        .get(`http://37.60.244.227:2001/api/consultations/${userid}`)
         .then(function (response) {
           setPastConsultations(response.data);
           console.log(response.data);
         })
         .catch((error) => {
           console.log(error);
+          console.log(userid);
         });
     });
   };
@@ -24,6 +25,7 @@ const ConsultationHistory = () => {
 
   return (
     <View>
+      <Text>{userid}</Text>
       <Text
         style={{
           padding: 5,

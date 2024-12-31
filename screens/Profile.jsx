@@ -1,6 +1,6 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
-import { TextInput } from "react-native-gesture-handler";
+import { ScrollView, TextInput } from "react-native-gesture-handler";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { BackHandler } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -9,7 +9,7 @@ const Profile = () => {
     alert("alert");
   };
   return (
-    <View>
+    <ScrollView>
       <TouchableOpacity style={styles.editButton} onPress={alertMessage}>
         <AntDesign
           name="edit"
@@ -50,7 +50,7 @@ const Profile = () => {
         <Ionicons name="exit-outline" size={24} color="black" />
         <Text>Exit app</Text>
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 };
 

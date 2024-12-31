@@ -14,7 +14,7 @@ import { useState } from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import dayjs from "dayjs";
 import Feather from "@expo/vector-icons/Feather";
-const CreateAccount = ({ navigation }) => {
+export default function CreateAccount({ navigation }) {
   const [visible, setVisible] = useState(false);
   const [pass, setPass] = useState("");
   const [confirmPass, setConfirmPass] = useState();
@@ -22,12 +22,12 @@ const CreateAccount = ({ navigation }) => {
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
-  const [dob, setDob] = useState(dayjs());
+  const [dob, setDob] = useState(null);
   const [illnesses, setIllnesses] = useState("");
   const [allergies, setAlllergies] = useState("");
   const [showDate, setShowDate] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const { idToSave, setIdToSave } = useUserId();
+  const { userId, setUserId } = useUserId();
 
   const handleSetVisible = () => {
     setVisible(!visible);
@@ -54,132 +54,156 @@ const CreateAccount = ({ navigation }) => {
       .then((response) => {
         console.log("success sent" + response);
         console.log(name, surname, pass);
-        setIdToSave(response.data.user_id);
+        setUserId(response.data.user_id);
         //should expect to have the user id here.
         console.log("user id = ", response.data.user_id);
       })
       .catch((err) => {
         console.log(err);
       });
+    const handleDateChange = (event, selectedDate) => {
+      if (selectedDate) {
+        setDob(selectedDate.toISOString().split("T")[0]);
+      }
+    };
   };
   return (
-    <ScrollView style={styles.mainPage}>
-      <Text
-        style={{
-          textAlign: "center",
-          fontSize: 24,
-          fontWeight: 600,
-          paddingTop: 60,
-        }}
-      >
-        Create Account
-      </Text>
-      <Text style={{ textAlign: "center", padding: 10, color: "gray" }}>
-        Join Medica and enjoy professional health care
-      </Text>
-      <View style={styles.form}>
-        <TextInput
-          placeholder="Enter Name"
-          onChangeText={(e) => setName(e)}
-          style={styles.field}
-        />
-        <TextInput
-          placeholder="Enter Surname"
-          onChangeText={(e) => setSurname(e)}
-          style={styles.field}
-        />
-        <TextInput
-          placeholder="Enter Email"
-          onChangeText={(e) => setEmail(e)}
-          style={styles.field}
-        />
-        <View style={styles.passwordContainer}>
-          <TextInput
-            placeholder="Enter Password"
-            onChangeText={(e) => setPass(e)}
-            secureTextEntry={showPassword}
-            style={styles.passwordField}
-          />
-          <TouchableOpacity onPress={handleShowPassword}>
-            <Feather
-              name={showPassword ? "eye-off" : "eye"}
-              size={27}
-              color="gray"
-              style={styles.eye}
-            />
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.passwordContainer}>
-          <TextInput
-            placeholder="Confirm Password"
-            onChangeText={(e) => setConfirmPass(e)}
-            secureTextEntry={showPassword}
-            style={styles.passwordField}
-          />
-          <TouchableOpacity onPress={handleShowPassword}>
-            <Feather
-              name={showPassword ? "eye-off" : "eye"}
-              size={27}
-              color="gray"
-              style={styles.eye}
-            />
-          </TouchableOpacity>
-        </View>
-        <TextInput
-          placeholder="Choose username"
-          onChangeText={(e) => setUsername(e)}
-          secureTextEntry={false}
-          style={styles.field}
-        />
-        <TouchableOpacity
-          style={styles.calendarButton}
-          onPress={() => handleShowDate()}
-        >
-          <Feather name="calendar" size={24} color="gray" />
-          <Text style={{ padding: 5 }}>Choose DOB</Text>
-        </TouchableOpacity>
-        {showDate && (
-          <DatePicker
-            mode="single"
-            onChange={(e) => setDob(e.date.toISOString().split("T")[0])}
-            date={dob}
-            visible={false}
-          />
-        )}
-        <TextInput
-          placeholder="Allergies."
-          onChangeText={(e) => setAlllergies(e)}
-          secureTextEntry={false}
-          style={styles.field}
-        />
-        <TextInput
-          placeholder="Illnesses"
-          onChangeText={(e) => setIllnesses(e)}
-          secureTextEntry={false}
-          style={styles.field}
-        />
-        <Text style={{ width: "80%", textAlign: "center" }}>
-          By cliking create account you agree to our terms and conditions
-        </Text>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            handlePost(), navigation.navigate("homePage");
+    <ScrollView>
+      <View style={styles.mainPage}>
+        <Text
+          style={{
+            textAlign: "center",
+            fontSize: 24,
+            fontWeight: 600,
+            paddingTop: 60,
           }}
         >
-          <Text style={styles.buttonText}>Create Account</Text>
-        </TouchableOpacity>
+          Create Account
+        </Text>
+        <Text style={{ textAlign: "center", padding: 10, color: "gray" }}>
+          Join Medica and enjoy professional health care
+        </Text>
+        <View style={styles.form}>
+          <TextInput
+            placeholder="Enter Name"
+            onChangeText={(e) => setName(e)}
+            style={styles.field}
+          />
+          <TextInput
+            placeholder="Enter Surname"
+            onChangeText={(e) => setSurname(e)}
+            style={styles.field}
+          />
+          <TextInput
+            placeholder="Enter Email"
+            onChangeText={(e) => setEmail(e)}
+            style={styles.field}
+          />
+          <View style={styles.passwordContainer}>
+            <TextInput
+              placeholder="Enter Password"
+              onChangeText={(e) => setPass(e)}
+              secureTextEntry={showPassword}
+              style={styles.passwordField}
+            />
+            <TouchableOpacity onPress={handleShowPassword}>
+              <Feather
+                name={showPassword ? "eye-off" : "eye"}
+                size={27}
+                color="gray"
+                style={styles.eye}
+              />
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.passwordContainer}>
+            <TextInput
+              placeholder="Confirm Password"
+              onChangeText={(e) => setConfirmPass(e)}
+              secureTextEntry={showPassword}
+              style={styles.passwordField}
+            />
+            <TouchableOpacity onPress={handleShowPassword}>
+              <Feather
+                name={showPassword ? "eye-off" : "eye"}
+                size={27}
+                color="gray"
+                style={styles.eye}
+              />
+            </TouchableOpacity>
+          </View>
+          <TextInput
+            placeholder="Choose username"
+            onChangeText={(e) => setUsername(e)}
+            secureTextEntry={false}
+            style={styles.field}
+          />
+          <TouchableOpacity
+            style={styles.calendarButton}
+            onPress={() => handleShowDate()}
+          >
+            <Feather name="calendar" size={24} color="gray" />
+            <Text style={{ padding: 5 }}>Choose DOB</Text>
+          </TouchableOpacity>
+          {showDate && (
+            <DatePicker
+              mode="single"
+              onChange={(selectedDate) => {
+                if (selectedDate?.date) {
+                  const date = new Date(selectedDate.date); // Convert to Date object
+                  if (!isNaN(date)) {
+                    setDob(date.toISOString().split("T")[0]); // Set the formatted date
+                    console.log(
+                      "Formatted Date:",
+                      date.toISOString().split("T")[0]
+                    );
+                  } else {
+                    console.error("Invalid Date:", selectedDate.date);
+                  }
+                } else {
+                  console.error("No date selected:", selectedDate);
+                }
+              }}
+              date={dob}
+              visible={showDate}
+            />
+          )}
+          <TextInput
+            placeholder="Allergies."
+            onChangeText={(e) => setAlllergies(e)}
+            secureTextEntry={false}
+            style={styles.field}
+          />
+          <TextInput
+            placeholder="Illnesses"
+            onChangeText={(e) => setIllnesses(e)}
+            secureTextEntry={false}
+            style={styles.field}
+          />
+          <Text style={{ width: "80%", textAlign: "center" }}>
+            By cliking create account you agree to our terms and conditions
+          </Text>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              handlePost(), navigation.navigate("homePage");
+            }}
+          >
+            <Text style={styles.buttonText}>Create Account</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.buttomStyle}> </View>
       </View>
-      <View style={styles.buttomStyle}> </View>
     </ScrollView>
   );
-};
-
-export default CreateAccount;
+}
 
 const styles = StyleSheet.create({
-  mainPage: {},
+  mainPage: {
+    flex: 1,
+    backgroundColor: "#fff",
+    padding: 20,
+  },
   header: {
     height: "18%",
     borderBottomRightRadius: 50,
