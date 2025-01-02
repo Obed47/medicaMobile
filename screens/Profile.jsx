@@ -1,12 +1,21 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { ScrollView, TextInput } from "react-native-gesture-handler";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { BackHandler } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import Ionicons from "@expo/vector-icons/Ionicons";
 const Profile = () => {
   const alertMessage = () => {
     alert("alert");
+    const [userId, setUserId] = useState("");
+    const [userProfile, setUserProfile] = useState({});
+    useEffect(() => {
+      const fetchUserId = async () => {
+        const user = AsyncStorage.getItem("userId");
+        await setUserId(JSON.parse(user));
+      };
+    });
   };
   return (
     <ScrollView>

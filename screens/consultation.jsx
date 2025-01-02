@@ -7,22 +7,44 @@ import {
   Linking,
 } from "react-native";
 import AwesomeAlert from "react-native-awesome-alerts";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { CheckBox } from "react-native-elements";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { ScrollView } from "react-native-gesture-handler";
+//
 const Consultation = ({ navigation }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+  const [userId, setUserId] = useState("");
+
   const handleIsChecked = () => {
     setIsChecked(!isChecked);
   };
   const handleShowAlert = () => {
     setShowAlert(!showAlert);
   };
+  useEffect(() => {
+    const fetchUserId = async () => {
+      try {
+        const identifier = await AsyncStorage.getItem("userId");
+        if (identifier) {
+          setUserId(JSON.parse(identifier));
+        }
+      } catch (error) {
+        console.error("Error parsing userId:", error);
+      }
+    };
+
+    fetchUserId();
+  }, []);
+
   const NavigateToWebsite = () => {
     //enter bot link here
-    Linking.openURL("https://example.com");
+    Linking.openURL(
+      `http://medica.smartcloudservices.cloud/medica/params?id=${userId}`
+    );
+    //getting the user id here
   };
   return (
     <ScrollView style={styles.container}>
@@ -74,13 +96,12 @@ const Consultation = ({ navigation }) => {
 export default Consultation;
 const styles = StyleSheet.create({
   image: {
-    width: "90%",
+    width: "100%",
     height: "100%",
     marginHorizontal: "auto",
   },
   imageContainer: {
-    height: "70%",
-    marginTop: 20,
+    height: 600,
   },
   text: {
     width: "90%",
@@ -97,12 +118,13 @@ const styles = StyleSheet.create({
     width: "60%",
     height: 60,
     marginHorizontal: "auto",
+
     borderRadius: 10,
     elevation: 5,
   },
   buttonInActive: {
     backgroundColor: "#E7E7FF",
-    width: "50%",
+    width: "60%",
     height: 60,
     marginHorizontal: "auto",
     borderRadius: 10,

@@ -3,7 +3,7 @@ import React, { createContext, useState } from "react";
 const UserIdContext = createContext();
 
 const UserIdProvider = ({ children }) => {
-  const [userId, setUserId] = useState("1010");
+  const [userId, setUserId] = useState();
 
   return (
     <UserIdContext.Provider value={{ userId, setUserId }}>

@@ -6,14 +6,13 @@ import {
   TouchableOpacity,
 } from "react-native";
 import axios from "axios";
-import { useContext } from "react";
-import { UserIdContext, UserIdProvider, useUserId } from "./context";
 import React from "react";
 import DatePicker from "react-native-ui-datepicker";
 import { useState } from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import dayjs from "dayjs";
 import Feather from "@expo/vector-icons/Feather";
+import { AsyncStorage } from "react-native";
 export default function CreateAccount({ navigation }) {
   const [visible, setVisible] = useState(false);
   const [pass, setPass] = useState("");
@@ -27,7 +26,6 @@ export default function CreateAccount({ navigation }) {
   const [allergies, setAlllergies] = useState("");
   const [showDate, setShowDate] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const { userId, setUserId } = useUserId();
 
   const handleSetVisible = () => {
     setVisible(!visible);
@@ -40,7 +38,7 @@ export default function CreateAccount({ navigation }) {
   };
   const handlePost = () => {
     axios
-      .post("http://37.60.244.227:2000/register", {
+      .post("http://medica.smartcloudservices.cloud/auth/register", {
         first_name: name,
         last_name: surname,
         date_naissance: dob,
@@ -53,10 +51,11 @@ export default function CreateAccount({ navigation }) {
       })
       .then((response) => {
         console.log("success sent" + response);
-        console.log(name, surname, pass);
-        setUserId(response.data.user_id);
+        console.log(name, surname, pass, response.data.user_id);
+        //posting the user id to the local storage here
+        AsyncStorage.setItem("userId", JSON.stringify(response.data.user_id));
         //should expect to have the user id here.
-        console.log("user id = ", response.data.user_id);
+        console.log("user id = ", userId);
       })
       .catch((err) => {
         console.log(err);
